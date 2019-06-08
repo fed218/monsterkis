@@ -1,0 +1,30 @@
+@import "~bootstrap/scss/functions";
+@import "./_variables";
+@import "~bootstrap/scss/bootstrap";
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Microsoft JhengHei', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, Helvetica, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+.btn-cart {
+    position: relative;
+}
+.btn-cart .badge {
+    position: absolute;
+    top: -6px;
+    right: -13px;
+}
+.border-bottom {
+    border-width: 2px !important;
+}
+.border-right {
+    border-width: 2px !important;
+}
+.alert-rounded{
+    border-radius: 50px;
+}
+.img-shadow:hover {
+    box-shadow: 10px 10px 10px gray;
+}
+.btn-shadow:hover {
+    box-shadow: 5px 5px 15px gray;
+}
