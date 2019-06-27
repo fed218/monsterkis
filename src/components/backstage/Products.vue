@@ -28,7 +28,7 @@
             <td>
               <button
                 type="button"
-                class="btn btn-outline-primary btn-sm"
+                class="btn btn-outline-primary btn-sm mr-1"
                 @click="openModal(false, item)"
               >編輯</button>
               <button type="button" class="btn btn-outline-danger btn-sm"
@@ -542,9 +542,3 @@ export default {
   },
 };
 </script>
-
-<style>
-.main {
-  min-height: calc(100vh - (48px + 38px + 48px + 35px + 16px + 16px));
-}
-</style>

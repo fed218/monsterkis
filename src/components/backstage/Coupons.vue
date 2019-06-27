@@ -27,7 +27,7 @@
             <td>
               <button
                 type="button"
-                class="btn btn-outline-primary btn-sm"
+                class="btn btn-outline-primary btn-sm mr-1"
                 @click.prevent="openModal(false, item)"
               >編輯</button>
               <button type="button" class="btn btn-outline-danger btn-sm"

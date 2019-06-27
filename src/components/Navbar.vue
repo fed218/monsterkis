@@ -25,7 +25,7 @@
         <div class="container">
           <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <router-link to="/" class="navbar-brand">
-              <img src="@/assets/logo.jpg" alt>
+              <img src="@/assets/logo.svg" height="50px">
             </router-link>
             <button
               class="navbar-toggler"
@@ -45,24 +45,18 @@
                   active-class="active"
                   class="nav-item nav-link mx-3"
                 >影城介紹</router-link>
-                <router-link to="/movies" active-class="active" class="nav-item nav-link mx-3">
-                  電影介紹
-                </router-link>
-                <router-link to="/rank" active-class="active" class="nav-item nav-link mx-3">
-                  哈燒排行榜
-                </router-link>
-                <router-link to="/time" active-class="active" class="nav-item nav-link mx-3">
-                  時刻表查詢
-                </router-link>
-                <router-link to="/shops" active-class="active" class="nav-item nav-link mx-3">
-                  影城餐飲
-                </router-link>
-                <router-link to="/price" active-class="active" class="nav-item nav-link mx-3">
-                  票價說明
-                </router-link>
-                <router-link to="/newest" active-class="active" class="nav-item nav-link mx-3">
-                  最新公告
-                </router-link>
+                <router-link to="/movies" active-class="active"
+                 class="nav-item nav-link mx-3">電影介紹</router-link>
+                <router-link to="/rank" active-class="active"
+                 class="nav-item nav-link mx-3">哈燒排行榜</router-link>
+                <router-link to="/time" active-class="active"
+                 class="nav-item nav-link mx-3">時刻表查詢</router-link>
+                <router-link to="/shops" active-class="active"
+                 class="nav-item nav-link mx-3">影城餐飲</router-link>
+                <router-link to="/price" active-class="active"
+                 class="nav-item nav-link mx-3">票價說明</router-link>
+                <router-link to="/newest" active-class="active"
+                 class="nav-item nav-link mx-3">最新公告</router-link>
               </div>
             </div>
           </nav>
@@ -177,7 +171,7 @@ export default {
       $.fn.extend({
         animateCss(animationName, callback) {
           const animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
-          this.addClass(`animated ${animationName}`).one(animationEnd, function () {
+          this.addClass(`animated ${animationName}`).one(animationEnd, () => {
             $(this).removeClass(`animated ${animationName}`);
             if (callback) {
               callback();
@@ -187,8 +181,10 @@ export default {
         },
       });
 
-      $('.animated').hover(() => {
-        $(this).animateCss('heartBeat');
+      $(document).ready(() => {
+        $('.animated').hover(() => {
+          $(this).animateCss('heartBeat');
+        });
       });
     },
     fansPage() {

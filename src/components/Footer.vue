@@ -5,7 +5,7 @@
         <div class="text-center">
           <p class="mb-1">
             作者：Wei-Cheng&nbsp;&nbsp;
-            <a href="#" class="text-white">
+            <a href="https://github.com/fed218" class="text-white">
               <i class="fab fa-github fa-lg animated"></i>
             </a>
           </p>
@@ -40,8 +40,10 @@ export default {
         },
       });
 
-      $('.animated').hover(() => {
-        $(this).animateCss('heartBeat');
+      $(document).ready(() => {
+        $('.animated').hover(() => {
+          $(this).animateCss('heartBeat');
+        });
       });
     },
   },

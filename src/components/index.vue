@@ -30,7 +30,7 @@ export default {
 <style>
 @media (max-width: 767px) {
   .main {
-   padding-top: 115px;
+    padding-top: 116px;
   }
 }
 </style>
