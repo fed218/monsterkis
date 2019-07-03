@@ -13,11 +13,14 @@ export default {
   },
   actions: {
     getCarts(context) {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
-      axios.get(api).then((response) => {
-        const storage = response.data.data;
-        storage.final_total = Math.round(storage.final_total);
-        context.commit('CART', storage);
+      return new Promise((resolve) => {
+        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
+        axios.get(api).then((response) => {
+          const storage = response.data.data;
+          storage.final_total = Math.round(storage.final_total);
+          context.commit('CART', storage);
+          resolve();
+        });
       });
     },
   },

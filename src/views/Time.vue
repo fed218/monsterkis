@@ -14,6 +14,8 @@
           <select class="form-control mr-2" v-model="filter">
             <option value disabled>------ 快速選單 ------</option>
             <option :value="item" v-for="item in titleArray" :key="item">{{item}}</option>
+            <option value disabled>-----------------------</option>
+            <option value="">All Movies</option>
           </select>
         </div>
       </div>
@@ -112,7 +114,12 @@
               class="tab-pane fade"
               :id="`tomorrow${item.id}`"
             >
-              <span v-for="oddtime in item.oddtime" :key="oddtime" class="px-3 border-right">{{oddtime}}</span>
+              <span
+                v-for="oddtime
+                in item.oddtime"
+                :key="oddtime"
+                class="px-3 border-right"
+              >{{oddtime}}</span>
             </div>
             <div
               class="tab-pane fade"
@@ -279,7 +286,6 @@ export default {
       const vm = this;
       this.$http.get(api).then((response) => {
         vm.$store.dispatch('updateLoading', false);
-        console.log(response.data);
 
         const storage = response.data.products;
 

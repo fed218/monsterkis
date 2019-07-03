@@ -97,7 +97,9 @@ export default {
       });
     },
     addtoCart(id, num) {
-      this.$store.dispatch('addtoCart', { id, num });
+      this.$store.dispatch('addtoCart', { id, num }).then(() => {
+        this.$store.dispatch('getCarts');
+      });
     },
   },
   computed: {

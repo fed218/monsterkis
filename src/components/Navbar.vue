@@ -182,7 +182,7 @@ export default {
       });
 
       $(document).ready(() => {
-        $('.animated').hover(() => {
+        $('.animated').hover(function() {
           $(this).animateCss('heartBeat');
         });
       });
@@ -199,10 +199,9 @@ export default {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`;
       const vm = this;
       vm.status.loadingItem = id;
-      this.$http.delete(api).then((response) => {
+      this.$http.delete(api).then(() => {
         vm.$store.dispatch('getCarts');
         vm.status.loadingItem = '';
-        console.log(response.data);
         vm.$store.dispatch('getCarts');
       });
     },

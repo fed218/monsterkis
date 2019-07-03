@@ -41,7 +41,7 @@ export default {
       });
 
       $(document).ready(() => {
-        $('.animated').hover(() => {
+        $('.animated').hover(function() {
           $(this).animateCss('heartBeat');
         });
       });

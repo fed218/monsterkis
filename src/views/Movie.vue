@@ -21,7 +21,7 @@
                   <a
                     class="btn btn-primary btn-sm"
                     href="#"
-                    @click="openModal"
+                    @click.prevent="openModal"
                     v-if="product.is_enabled === '1'"
                   >快速訂票</a>
                 </li>
@@ -169,7 +169,11 @@ export default {
       $('#ticketModal').modal('show');
     },
     addtoCart(id, num) {
-      this.$store.dispatch('addtoCart', { id, num });
+      this.$store.dispatch('addtoCart', { id, num }).then(() => {
+        return this.$store.dispatch('getCarts');
+      }).then(() => {
+        $('#ticketModal').modal('hide');
+      });
     },
   },
   computed: {
