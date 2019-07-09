@@ -112,7 +112,6 @@ export default {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order/${vm.orderId}`;
       this.$http.get(api).then((response) => {
         vm.$store.dispatch('updateLoading', false);
-        console.log(response.data);
 
         const storage = response.data.order;
         storage.total = Math.round(storage.total);
@@ -122,8 +121,7 @@ export default {
     payOrder() {
       const vm = this;
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/pay/${vm.orderId}`;
-      this.$http.post(api).then((response) => {
-        console.log(response.data);
+      this.$http.post(api).then(() => {
         vm.getOrder();
       });
     },

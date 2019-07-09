@@ -241,7 +241,6 @@ export default {
       vm.$store.dispatch('updateLoading', true);
       this.$http.post(api, { data: { code: vm.coupon_code } }).then((response) => {
         vm.$store.dispatch('updateLoading', false);
-        console.log(response.data);
         if (response.data.success) {
           vm.$store.dispatch('getCarts');
           vm.coupon_code = '';
@@ -268,8 +267,6 @@ export default {
               vm.$router.push(`checkout/${response.data.orderId}`);
             }
           });
-        } else {
-          console.log('欄位不完整');
         }
       });
     },

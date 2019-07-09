@@ -276,9 +276,7 @@ export default {
         text = '';
         timestamp += 86400000;
       }
-      vm.today = vm.date[0];
-      vm.tomorrow = vm.date[1];
-      vm.date3 = vm.date[2];
+      [vm.today, vm.tomorrow, vm.date3] = vm.date;
     },
     getProducts() {
       this.$store.dispatch('updateLoading', true);

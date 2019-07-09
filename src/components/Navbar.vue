@@ -182,7 +182,7 @@ export default {
       });
 
       $(document).ready(() => {
-        $('.animated').hover(function() {
+        $('.animated').hover(function animateCss() {
           $(this).animateCss('heartBeat');
         });
       });

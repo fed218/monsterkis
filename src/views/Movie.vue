@@ -14,7 +14,7 @@
         <div class="col-lg-4">
           <div class="card border-0 text-center">
             <div class="card-body">
-              <img :src="product.imageUrl" class="img-fluid">
+              <img :src="product.imageUrl" class="img-fluid" />
               <ul class="list-group">
                 <li class="list-group-item border-0 pl-0 mt-3">
                   <h5 class="card-title text-primary">{{product.title}}</h5>
@@ -47,27 +47,27 @@
                     src="@/assets/G_0.png"
                     style="weight: 35px; height: 35px;"
                     v-if="product.grading === '普遍級'"
-                  >
+                  />
                   <img
                     src="@/assets/G_6.png"
                     style="weight: 35px; height: 35px;"
                     v-if="product.grading === '保護級'"
-                  >
+                  />
                   <img
                     src="@/assets/G_12.png"
                     style="weight: 35px; height: 35px;"
                     v-if="product.grading === '輔12級'"
-                  >
+                  />
                   <img
                     src="@/assets/G_15.png"
                     style="weight: 35px; height: 35px;"
                     v-if="product.grading === '輔15級'"
-                  >
+                  />
                   <img
                     src="@/assets/G_18.png"
                     style="weight: 35px; height: 35px;"
                     v-if="product.grading === '輔18級'"
-                  >
+                  />
                 </li>
               </ul>
             </div>
@@ -114,15 +114,17 @@
               <form class="form-inline mr-5">
                 <div class="form-group">
                   <select class="form-control" v-model="product.count">
-                    <option v-for="num in 10" :value="num" :key="num">
-                      選購 {{num}} {{product.unit}}
-                    </option>
+                    <option
+                      v-for="num in 10"
+                      :value="num"
+                      :key="num"
+                    >選購 {{num}} {{product.unit}}</option>
                   </select>
                 </div>
               </form>
               <div class="text-muted">
-                <span>小計</span>
-                <strong> {{product.count * product.price}}</strong> 元
+                <span>小計 </span>
+                <strong>{{product.count * product.price}}</strong> 元
               </div>
             </div>
           </div>
@@ -169,11 +171,12 @@ export default {
       $('#ticketModal').modal('show');
     },
     addtoCart(id, num) {
-      this.$store.dispatch('addtoCart', { id, num }).then(() => {
-        return this.$store.dispatch('getCarts');
-      }).then(() => {
-        $('#ticketModal').modal('hide');
-      });
+      this.$store
+        .dispatch('addtoCart', { id, num })
+        .then(() => this.$store.dispatch('getCarts'))
+        .then(() => {
+          $('#ticketModal').modal('hide');
+        });
     },
   },
   computed: {

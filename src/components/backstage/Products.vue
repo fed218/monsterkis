@@ -396,10 +396,9 @@
 <script>
 import $ from 'jquery';
 
-import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 
-import Pagination from '../Pagination';
+import Pagination from '../Pagination.vue';
 
 export default {
   data() {
@@ -408,24 +407,22 @@ export default {
       tempProduct: {},
       isNew: false,
       status: {
-        loading: false
+        loading: false,
       },
       pagination: {},
       time: [{ times: '' }, { times: '' }, { times: '' }, { times: '' }, { times: '' }, { times: '' }],
     };
   },
   components: {
-    Loading,
-    Pagination
+    Pagination,
   },
   methods: {
     getProducts(page = 1) {
       this.$store.dispatch('updateLoading', true);
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/products?page=${page}`;
       const vm = this;
-      this.$http.get(api).then(response => {
+      this.$http.get(api).then((response) => {
         vm.$store.dispatch('updateLoading', false);
-        console.log(response.data);
         vm.products = response.data.products;
         vm.pagination = response.data.pagination;
       });
@@ -480,13 +477,12 @@ export default {
         httpMethods = 'put';
       }
       this.$http[httpMethods](api, { data: vm.tempProduct }).then((response) => {
-        console.log(response.data);
         if (response.data.success) {
           $('#productModal').modal('hide');
-          vm.getProducts();
+          vm.getProducts(vm.pagination.current_page);
         } else {
           $('#productModal').modal('hide');
-          vm.getProducts();
+          vm.getProducts(vm.pagination.current_page);
         }
       });
     },
@@ -497,15 +493,13 @@ export default {
     delProduct(id) {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${id}`;
       const vm = this;
-      this.$http.delete(api).then((response) => {
-        console.log(response.data);
+      this.$http.delete(api).then(() => {
         $('#delProductModal').modal('hide');
         vm.getProducts();
       });
     },
     uploadFile() {
       this.status.loading = true;
-      console.log(this);
       const uploadedFile = this.$refs.files.files[0];
       const formData = new FormData();
       formData.append('file-to-upload', uploadedFile);
@@ -519,7 +513,6 @@ export default {
         })
         .then((response) => {
           vm.status.loading = false;
-          console.log(response.data);
           if (response.data.success) {
             vm.$set(vm.tempProduct, 'imageUrl', response.data.imageUrl);
           } else if (response.data.message === '檔案格式錯誤') {

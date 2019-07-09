@@ -92,7 +92,6 @@ export default {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${vm.productId}`;
       this.$http.get(api).then((response) => {
         vm.$store.dispatch('updateLoading', false);
-        console.log(response.data);
         vm.product = response.data.product;
       });
     },

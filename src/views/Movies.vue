@@ -152,8 +152,6 @@ export default {
       const vm = this;
       this.$http.get(api).then((response) => {
         vm.$store.dispatch('updateLoading', false);
-        console.log(response.data);
-
         const storage = response.data.products;
 
         storage.forEach((item) => {

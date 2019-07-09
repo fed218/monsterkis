@@ -51,7 +51,6 @@ export default {
       const vm = this;
       this.$http.post(api, vm.user).then((response) => {
         vm.loading = false;
-        console.log(response.data);
         if (response.data.success) {
           vm.$router.push('/admin/products');
         } else {

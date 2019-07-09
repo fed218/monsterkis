@@ -9,7 +9,6 @@ import VueAxios from 'vue-axios';
 import 'bootstrap';
 
 import VueAwesomeSwiper from 'vue-awesome-swiper';
-import 'swiper/dist/css/swiper.css';
 
 import 'animate.css/animate.min.css';
 
@@ -22,6 +21,8 @@ import VueI18n from 'vue-i18n';
 import zhTW from 'vee-validate/dist/locale/zh_TW';
 
 import currencyFilter from '@/filters/currency';
+import timetampsFilter from '@/filters/timetamps';
+import mathroundFilter from '@/filters/mathround';
 
 axios.defaults.withCredentials = true;
 Vue.use(VueAxios, axios);
@@ -44,6 +45,8 @@ Vue.use(VeeValidate, {
 });
 
 Vue.filter('currency', currencyFilter);
+Vue.filter('timetamps', timetampsFilter);
+Vue.filter('mathround', mathroundFilter);
 
 Vue.config.productionTip = false;
 
@@ -57,7 +60,6 @@ router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth) {
     const api = `${process.env.VUE_APP_APIPATH}/api/user/check`;
     axios.post(api).then((response) => {
-      console.log(response.data);
       if (response.data.success) {
         next();
       } else {

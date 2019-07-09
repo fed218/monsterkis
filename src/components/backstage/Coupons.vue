@@ -19,7 +19,7 @@
           <tr v-for="item in coupons" :key="item.id">
             <td>{{item.title}}</td>
             <td>{{item.percent}}%</td>
-            <td>{{item.due_date}}</td>
+            <td>{{item.due_date | timetamps}}</td>
             <td>
               <span v-if="item.is_enabled == 1" class="text-success">啟用</span>
               <span v-else>未啟用</span>
@@ -185,24 +185,8 @@ export default {
       const vm = this;
       this.$http.get(api).then((response) => {
         vm.$store.dispatch('updateLoading', false);
-        console.log(response.data);
         const str = JSON.stringify(response.data.coupons);
         vm.coupons = JSON.parse(str);
-        vm.coupons.forEach((item) => {
-          const timestamp = item.due_date;
-          const date = new Date(timestamp * 1000);
-          if (date.getMonth() <= 8) {
-            if (date.getDate() <= 9) {
-              item.due_date = `${date.getFullYear()}-0${date.getMonth() + 1}-0${date.getDate()}`;
-            } else {
-              item.due_date = `${date.getFullYear()}-0${date.getMonth() + 1}-${date.getDate()}`;
-            }
-          } else if (date.getDate() <= 9) {
-            item.due_date = `${date.getFullYear()}-${date.getMonth() + 1}-0${date.getDate()}`;
-          } else {
-            item.due_date = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
-          }
-        });
         vm.pagination = response.data.pagination;
       });
     },
@@ -212,6 +196,19 @@ export default {
         this.isNew = true;
       } else {
         this.tempCoupons = Object.assign({}, item);
+        const timestamp = this.tempCoupons.due_date;
+        const date = new Date(timestamp * 1000);
+        if (date.getMonth() <= 8) {
+          if (date.getDate() <= 9) {
+            this.tempCoupons.due_date = `${date.getFullYear()}-0${date.getMonth() + 1}-0${date.getDate()}`;
+          } else {
+            this.tempCoupons.due_date = `${date.getFullYear()}-0${date.getMonth() + 1}-${date.getDate()}`;
+          }
+        } else if (date.getDate() <= 9) {
+          this.tempCoupons.due_date = `${date.getFullYear()}-${date.getMonth() + 1}-0${date.getDate()}`;
+        } else {
+          this.tempCoupons.due_date = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+        }
         this.isNew = false;
       }
       $('#couponModal').modal('show');
@@ -230,10 +227,9 @@ export default {
         vm.couponSend = JSON.parse(str);
         const timestamp = new Date(vm.couponSend.due_date).getTime();
         vm.couponSend.due_date = Math.floor(timestamp / 1000);
-        this.$http[httpMethods](api, { data: vm.couponSend }).then((response) => {
-          console.log(response.data);
+        this.$http[httpMethods](api, { data: vm.couponSend }).then(() => {
           $('#couponModal').modal('hide');
-          vm.getCoupons();
+          vm.getCoupons(vm.pagination.current_page);
         });
       } else {
         vm.tempCoupons.percent = 100;
@@ -242,10 +238,9 @@ export default {
         vm.couponSend = JSON.parse(str);
         const timestamp = new Date(vm.couponSend.due_date).getTime();
         vm.couponSend.due_date = Math.floor(timestamp / 1000);
-        this.$http[httpMethods](api, { data: vm.couponSend }).then((response) => {
-          console.log(response.data);
+        this.$http[httpMethods](api, { data: vm.couponSend }).then(() => {
           $('#couponModal').modal('hide');
-          vm.getCoupons();
+          vm.getCoupons(vm.pagination.current_page);
         });
       }
     },
@@ -256,8 +251,7 @@ export default {
     delCoupons(id) {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${id}`;
       const vm = this;
-      this.$http.delete(api).then((response) => {
-        console.log(response.data);
+      this.$http.delete(api).then(() => {
         $('#delCouponModal').modal('hide');
         vm.getCoupons();
       });
